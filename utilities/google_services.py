@@ -6,13 +6,31 @@ from google.cloud import speech
 import os
 from pydub import AudioSegment
 import io
+from google.oauth2 import service_account
 import openai
 import requests
 from google.cloud import texttospeech
 import json
+from dotenv  import load_dotenv
+load_dotenv()
+# Reconstruct the credentials dictionary
+google_credentials = {
+    "type": os.getenv("GOOGLE_TYPE"),
+    "project_id": os.getenv("GOOGLE_PROJECT_ID"),
+    "private_key_id": os.getenv("GOOGLE_PRIVATE_KEY_ID"),
+    "private_key": os.getenv("GOOGLE_PRIVATE_KEY").replace('\\n', '\n'),  # Replacing escaped newlines
+    "client_email": os.getenv("GOOGLE_CLIENT_EMAIL"),
+    "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+    "auth_uri": os.getenv("GOOGLE_AUTH_URI"),
+    "token_uri": os.getenv("GOOGLE_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("GOOGLE_AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.getenv("GOOGLE_CLIENT_X509_CERT_URL")
+}
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "key.json"
-client = speech.SpeechClient()
+# Use the credentials to authenticate the SpeechClient
+credentials = service_account.Credentials.from_service_account_info(google_credentials)
+client = speech.SpeechClient(credentials=credentials)
+
 azure_openai_key = st.secrets["AZURE_OPENAI_KEY"]
 azure_openai_endpoint = st.secrets["AZURE_OPENAI_ENDPOINT"]
 class GoogleServices:
@@ -67,7 +85,7 @@ class GoogleServices:
     @staticmethod
     def text_to_speech_with_google(corrected_transcription, output_audio_file, duration):
         """Takes the corrected transcription and converts it into speech using Google Text-to-Speech,ensuring the audio duration matches the required duration from the map."""
-        client = texttospeech.TextToSpeechClient()
+        client = texttospeech.TextToSpeechClient(credentials=credentials)
         if corrected_transcription:
             synthesis_input = texttospeech.SynthesisInput(text=corrected_transcription)
             voice = texttospeech.VoiceSelectionParams(
