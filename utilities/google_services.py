@@ -30,8 +30,8 @@ google_credentials = {
 credentials = service_account.Credentials.from_service_account_info(google_credentials)
 client = speech.SpeechClient(credentials=credentials)
 
-azure_openai_key = st.secrets["AZURE_OPENAI_KEY"]
-azure_openai_endpoint = st.secrets["AZURE_OPENAI_ENDPOINT"]
+azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
+azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 class GoogleServices:
     @staticmethod
     def correct_transcription_map_with_gpt4o(transcription_map):
