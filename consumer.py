@@ -5,7 +5,9 @@ import os
 import json
 from utilities.index import Utilities
 from google.oauth2 import service_account
+from dotenv  import load_dotenv
 
+load_dotenv()
 # Reconstruct the credentials dictionary
 google_credentials = {
     "type": os.getenv("GOOGLE_TYPE"),
