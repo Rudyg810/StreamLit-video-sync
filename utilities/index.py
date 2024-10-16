@@ -11,7 +11,6 @@ import json
 from utilities.google_services import GoogleServices
 import time
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "key.json"
 client = speech.SpeechClient()
 
 class Utilities:
