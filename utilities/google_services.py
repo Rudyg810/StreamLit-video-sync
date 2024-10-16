@@ -30,19 +30,19 @@ google_credentials = {
 credentials = service_account.Credentials.from_service_account_info(google_credentials)
 client = speech.SpeechClient(credentials=credentials)
 
-azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
-azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+# azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
+# azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 class GoogleServices:
     @staticmethod
     def correct_transcription_map_with_gpt4o(transcription_map):
         """Passes the transcription map to GPT-4o model to correct grammatical mistakes minimally and remove filler words."""
         
-        azure_openai_key = azure_openai_key
-        azure_openai_endpoint = azure_openai_endpoint
+        azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
+        azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 
         headers = {
             "Content-Type": "application/json",
-            "api-key": azure_openai_key
+            "api-key": os.getenv("AZURE_OPENAI_KEY")
         }
         
         # Create the content by converting the transcription_map to a string format.
