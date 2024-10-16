@@ -5,7 +5,6 @@ from google.cloud import speech
 import os
 from pydub import AudioSegment
 import io
-import openai
 import requests
 from google.cloud import texttospeech
 import json

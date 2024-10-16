@@ -7,7 +7,6 @@ import os
 from pydub import AudioSegment
 import io
 from google.oauth2 import service_account
-import openai
 import requests
 from google.cloud import texttospeech
 import json
