@@ -104,8 +104,8 @@ class Utilities:
         """Loops through the transcription map, corrects each transcription using GPT-4o, 
         introduces a delay after each request, and returns a corrected map."""
         
-        corrected_map = GoogleServices.correct_transcription_map_with_gpt4o(transcription_map)
-        return corrected_map
+        # corrected_map = GoogleServices.correct_transcription_map_with_gpt4o(transcription_map)
+        return transcription_map
     @staticmethod
     def join_audio_files_from_map(transcription_map, output_file="final_output.wav"):
         """Joins all the generated audio files (temp_audio_output_start_end.wav) into a single file."""
